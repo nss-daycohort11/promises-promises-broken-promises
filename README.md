@@ -4,7 +4,7 @@ Your mission, should you choose to accept it, is convert this simple application
 
 Look for hints that I've provided throughout the code.
 
-## Setup
+## Setup - DONE
 
 After you've cloned the repository locally, just run the following commands.
 
@@ -14,7 +14,6 @@ npm install && bower install
 cd ..
 http-server
 ```
-
 Then open your browser and hit your web server IP address.
 
 ## Requirements
