@@ -1,14 +1,13 @@
 define(function(require) {
   var _ = require("lodash");
+  var Q = require("q");
 
   return {
     load: function(fn) {
       // This XHR should be in its own require module, not here
       $.ajax("https://nss-book-store.firebaseio.com/booktypes.json").done(function(types) {
 
-        // This XHR does belong here
-        $.ajax("https://nss-book-store.firebaseio.com/books.json").done(function(books) {
-
+  
           /*
             This code is dependent upon two XHRs and violates
             the Single Responsibility Principle.
@@ -32,7 +31,7 @@ define(function(require) {
           // Still relying on a callback? That's so 2014...
           fn(books);
 
-        });
+       
       });
 
     }
