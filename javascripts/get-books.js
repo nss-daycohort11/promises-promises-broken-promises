@@ -2,10 +2,28 @@ define(function(require) {
   var _ = require("lodash");
   var Q = require("q");
 
-  return {
-    load: function(fn) {
-      // This XHR should be in its own require module, not here
-      $.ajax("https://nss-book-store.firebaseio.com/booktypes.json").done(function(types) {
+  return function() {
+    var deferred = Q.defer();
+
+    $.ajax({
+      url: "https://nss-book-store.firebaseio.com/books.json"
+    })
+    .done(function(bookData) {
+      deferred.resolve(bookData);
+    })
+    .fail(function(a, b, c) {
+      deferred.reject(a, b, c);
+    });
+
+    return deferred.promise;
+
+  }
+});
+
+
+    // load: function(fn) {
+    //   // This XHR should be in its own require module, not here
+    //   $.ajax("https://nss-book-store.firebaseio.com/books.json").done(function(types) {
 
   
           /*
@@ -16,24 +34,24 @@ define(function(require) {
             version of JavaScript syntax). They are called fat arrows.
             Check out the docs at http://es6-features.org/#ExpressionBodies
           */
-          types = Object.keys( types ).map(key => types[ key ]);
-          books = Object.keys( books ).map(key => books[ key ]);
+//           types = Object.keys( types ).map(key => types[ key ]);
+//           books = Object.keys( books ).map(key => books[ key ]);
 
-          /*
-            I'm using the lodash `find()` method here.
-              https://lodash.com/docs#find
-           */
-          var books = books.map(book => {
-            book.type = _.find(types, { id:book.booktype }).label;
-            return book;
-          });
+//           /*
+//             I'm using the lodash `find()` method here.
+//               https://lodash.com/docs#find
+//            */
+//           var books = books.map(book => {
+//             book.type = _.find(types, { id:book.booktype }).label;
+//             return book;
+//           });
 
-          // Still relying on a callback? That's so 2014...
-          fn(books);
+//           // Still relying on a callback? That's so 2014...
+//           fn(books);
 
        
-      });
+//       });
 
-    }
-  };
-});
+//     }
+//   };
+// });
